@@ -11,39 +11,12 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { FloatNullableFilter } from "../../util/FloatNullableFilter";
-import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { InventoryListRelationFilter } from "../../inventory/base/InventoryListRelationFilter";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { PurchaseOrderWhereUniqueInput } from "../../purchaseOrder/base/PurchaseOrderWhereUniqueInput";
+import { Type } from "class-transformer";
+import { IsOptional } from "class-validator";
 
 @InputType()
 class AssetWhereInput {
-  @ApiProperty({
-    required: false,
-    type: FloatNullableFilter,
-  })
-  @Type(() => FloatNullableFilter)
-  @IsOptional()
-  @Field(() => FloatNullableFilter, {
-    nullable: true,
-  })
-  cost?: FloatNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  description?: StringNullableFilter;
-
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -54,52 +27,6 @@ class AssetWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => InventoryListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => InventoryListRelationFilter)
-  @IsOptional()
-  @Field(() => InventoryListRelationFilter, {
-    nullable: true,
-  })
-  inventories?: InventoryListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  name?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: DateTimeNullableFilter,
-  })
-  @Type(() => DateTimeNullableFilter)
-  @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
-    nullable: true,
-  })
-  purchaseDate?: DateTimeNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => PurchaseOrderWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PurchaseOrderWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PurchaseOrderWhereUniqueInput, {
-    nullable: true,
-  })
-  purchaseOrder?: PurchaseOrderWhereUniqueInput;
 }
 
 export { AssetWhereInput as AssetWhereInput };

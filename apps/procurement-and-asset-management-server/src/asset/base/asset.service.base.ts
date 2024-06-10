@@ -10,13 +10,7 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-
-import {
-  Prisma,
-  Asset as PrismaAsset,
-  Inventory as PrismaInventory,
-  PurchaseOrder as PrismaPurchaseOrder,
-} from "@prisma/client";
+import { Prisma, Asset as PrismaAsset } from "@prisma/client";
 
 export class AssetServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -49,26 +43,5 @@ export class AssetServiceBase {
     args: Prisma.SelectSubset<T, Prisma.AssetDeleteArgs>
   ): Promise<PrismaAsset> {
     return this.prisma.asset.delete(args);
-  }
-
-  async findInventories(
-    parentId: string,
-    args: Prisma.InventoryFindManyArgs
-  ): Promise<PrismaInventory[]> {
-    return this.prisma.asset
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .inventories(args);
-  }
-
-  async getPurchaseOrder(
-    parentId: string
-  ): Promise<PrismaPurchaseOrder | null> {
-    return this.prisma.asset
-      .findUnique({
-        where: { id: parentId },
-      })
-      .purchaseOrder();
   }
 }

@@ -22,9 +22,6 @@ import { Asset } from "./Asset";
 import { AssetFindManyArgs } from "./AssetFindManyArgs";
 import { AssetWhereUniqueInput } from "./AssetWhereUniqueInput";
 import { AssetUpdateInput } from "./AssetUpdateInput";
-import { InventoryFindManyArgs } from "../../inventory/base/InventoryFindManyArgs";
-import { Inventory } from "../../inventory/base/Inventory";
-import { InventoryWhereUniqueInput } from "../../inventory/base/InventoryWhereUniqueInput";
 
 export class AssetControllerBase {
   constructor(protected readonly service: AssetService) {}
@@ -32,29 +29,10 @@ export class AssetControllerBase {
   @swagger.ApiCreatedResponse({ type: Asset })
   async createAsset(@common.Body() data: AssetCreateInput): Promise<Asset> {
     return await this.service.createAsset({
-      data: {
-        ...data,
-
-        purchaseOrder: data.purchaseOrder
-          ? {
-              connect: data.purchaseOrder,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
-        cost: true,
         createdAt: true,
-        description: true,
         id: true,
-        name: true,
-        purchaseDate: true,
-
-        purchaseOrder: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -68,19 +46,8 @@ export class AssetControllerBase {
     return this.service.assets({
       ...args,
       select: {
-        cost: true,
         createdAt: true,
-        description: true,
         id: true,
-        name: true,
-        purchaseDate: true,
-
-        purchaseOrder: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -95,19 +62,8 @@ export class AssetControllerBase {
     const result = await this.service.asset({
       where: params,
       select: {
-        cost: true,
         createdAt: true,
-        description: true,
         id: true,
-        name: true,
-        purchaseDate: true,
-
-        purchaseOrder: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -129,29 +85,10 @@ export class AssetControllerBase {
     try {
       return await this.service.updateAsset({
         where: params,
-        data: {
-          ...data,
-
-          purchaseOrder: data.purchaseOrder
-            ? {
-                connect: data.purchaseOrder,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
-          cost: true,
           createdAt: true,
-          description: true,
           id: true,
-          name: true,
-          purchaseDate: true,
-
-          purchaseOrder: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -175,19 +112,8 @@ export class AssetControllerBase {
       return await this.service.deleteAsset({
         where: params,
         select: {
-          cost: true,
           createdAt: true,
-          description: true,
           id: true,
-          name: true,
-          purchaseDate: true,
-
-          purchaseOrder: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -199,87 +125,5 @@ export class AssetControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.Get("/:id/inventories")
-  @ApiNestedQuery(InventoryFindManyArgs)
-  async findInventories(
-    @common.Req() request: Request,
-    @common.Param() params: AssetWhereUniqueInput
-  ): Promise<Inventory[]> {
-    const query = plainToClass(InventoryFindManyArgs, request.query);
-    const results = await this.service.findInventories(params.id, {
-      ...query,
-      select: {
-        asset: {
-          select: {
-            id: true,
-          },
-        },
-
-        createdAt: true,
-        id: true,
-        location: true,
-        quantity: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/inventories")
-  async connectInventories(
-    @common.Param() params: AssetWhereUniqueInput,
-    @common.Body() body: InventoryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      inventories: {
-        connect: body,
-      },
-    };
-    await this.service.updateAsset({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/inventories")
-  async updateInventories(
-    @common.Param() params: AssetWhereUniqueInput,
-    @common.Body() body: InventoryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      inventories: {
-        set: body,
-      },
-    };
-    await this.service.updateAsset({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/inventories")
-  async disconnectInventories(
-    @common.Param() params: AssetWhereUniqueInput,
-    @common.Body() body: InventoryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      inventories: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateAsset({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

@@ -11,30 +11,11 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsNumber,
-  IsOptional,
-  IsDate,
-  IsString,
-  ValidateNested,
-} from "class-validator";
+import { IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { Inventory } from "../../inventory/base/Inventory";
-import { PurchaseOrder } from "../../purchaseOrder/base/PurchaseOrder";
 
 @ObjectType()
 class Asset {
-  @ApiProperty({
-    required: false,
-    type: Number,
-  })
-  @IsNumber()
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  cost!: number | null;
-
   @ApiProperty({
     required: true,
   })
@@ -44,63 +25,12 @@ class Asset {
   createdAt!: Date;
 
   @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  description!: string | null;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Inventory],
-  })
-  @ValidateNested()
-  @Type(() => Inventory)
-  @IsOptional()
-  inventories?: Array<Inventory>;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name!: string | null;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  purchaseDate!: Date | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => PurchaseOrder,
-  })
-  @ValidateNested()
-  @Type(() => PurchaseOrder)
-  @IsOptional()
-  purchaseOrder?: PurchaseOrder | null;
 
   @ApiProperty({
     required: true,

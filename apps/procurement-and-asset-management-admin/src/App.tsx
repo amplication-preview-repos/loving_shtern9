@@ -5,26 +5,22 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
-import { SupplierList } from "./supplier/SupplierList";
-import { SupplierCreate } from "./supplier/SupplierCreate";
-import { SupplierEdit } from "./supplier/SupplierEdit";
-import { SupplierShow } from "./supplier/SupplierShow";
-import { ProcurementRequestList } from "./procurementRequest/ProcurementRequestList";
-import { ProcurementRequestCreate } from "./procurementRequest/ProcurementRequestCreate";
-import { ProcurementRequestEdit } from "./procurementRequest/ProcurementRequestEdit";
-import { ProcurementRequestShow } from "./procurementRequest/ProcurementRequestShow";
 import { AssetList } from "./asset/AssetList";
 import { AssetCreate } from "./asset/AssetCreate";
 import { AssetEdit } from "./asset/AssetEdit";
 import { AssetShow } from "./asset/AssetShow";
-import { InventoryList } from "./inventory/InventoryList";
-import { InventoryCreate } from "./inventory/InventoryCreate";
-import { InventoryEdit } from "./inventory/InventoryEdit";
-import { InventoryShow } from "./inventory/InventoryShow";
-import { PurchaseOrderList } from "./purchaseOrder/PurchaseOrderList";
-import { PurchaseOrderCreate } from "./purchaseOrder/PurchaseOrderCreate";
-import { PurchaseOrderEdit } from "./purchaseOrder/PurchaseOrderEdit";
-import { PurchaseOrderShow } from "./purchaseOrder/PurchaseOrderShow";
+import { ProcurementList } from "./procurement/ProcurementList";
+import { ProcurementCreate } from "./procurement/ProcurementCreate";
+import { ProcurementEdit } from "./procurement/ProcurementEdit";
+import { ProcurementShow } from "./procurement/ProcurementShow";
+import { VendorList } from "./vendor/VendorList";
+import { VendorCreate } from "./vendor/VendorCreate";
+import { VendorEdit } from "./vendor/VendorEdit";
+import { VendorShow } from "./vendor/VendorShow";
+import { EmployeeList } from "./employee/EmployeeList";
+import { EmployeeCreate } from "./employee/EmployeeCreate";
+import { EmployeeEdit } from "./employee/EmployeeEdit";
+import { EmployeeShow } from "./employee/EmployeeShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -52,20 +48,6 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
-          name="Supplier"
-          list={SupplierList}
-          edit={SupplierEdit}
-          create={SupplierCreate}
-          show={SupplierShow}
-        />
-        <Resource
-          name="ProcurementRequest"
-          list={ProcurementRequestList}
-          edit={ProcurementRequestEdit}
-          create={ProcurementRequestCreate}
-          show={ProcurementRequestShow}
-        />
-        <Resource
           name="Asset"
           list={AssetList}
           edit={AssetEdit}
@@ -73,18 +55,25 @@ const App = (): React.ReactElement => {
           show={AssetShow}
         />
         <Resource
-          name="Inventory"
-          list={InventoryList}
-          edit={InventoryEdit}
-          create={InventoryCreate}
-          show={InventoryShow}
+          name="Procurement"
+          list={ProcurementList}
+          edit={ProcurementEdit}
+          create={ProcurementCreate}
+          show={ProcurementShow}
         />
         <Resource
-          name="PurchaseOrder"
-          list={PurchaseOrderList}
-          edit={PurchaseOrderEdit}
-          create={PurchaseOrderCreate}
-          show={PurchaseOrderShow}
+          name="Vendor"
+          list={VendorList}
+          edit={VendorEdit}
+          create={VendorCreate}
+          show={VendorShow}
+        />
+        <Resource
+          name="Employee"
+          list={EmployeeList}
+          edit={EmployeeEdit}
+          create={EmployeeCreate}
+          show={EmployeeShow}
         />
       </Admin>
     </div>

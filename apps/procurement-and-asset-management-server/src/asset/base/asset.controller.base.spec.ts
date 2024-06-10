@@ -18,41 +18,25 @@ import { AssetService } from "../asset.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
-  cost: 42.42,
   createdAt: new Date(),
-  description: "exampleDescription",
   id: "exampleId",
-  name: "exampleName",
-  purchaseDate: new Date(),
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
-  cost: 42.42,
   createdAt: new Date(),
-  description: "exampleDescription",
   id: "exampleId",
-  name: "exampleName",
-  purchaseDate: new Date(),
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
-    cost: 42.42,
     createdAt: new Date(),
-    description: "exampleDescription",
     id: "exampleId",
-    name: "exampleName",
-    purchaseDate: new Date(),
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
-  cost: 42.42,
   createdAt: new Date(),
-  description: "exampleDescription",
   id: "exampleId",
-  name: "exampleName",
-  purchaseDate: new Date(),
   updatedAt: new Date(),
 };
 
@@ -139,7 +123,6 @@ describe("Asset", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        purchaseDate: CREATE_RESULT.purchaseDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -152,7 +135,6 @@ describe("Asset", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
-          purchaseDate: FIND_MANY_RESULT[0].purchaseDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -176,7 +158,6 @@ describe("Asset", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
-        purchaseDate: FIND_ONE_RESULT.purchaseDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -190,7 +171,6 @@ describe("Asset", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        purchaseDate: CREATE_RESULT.purchaseDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {
